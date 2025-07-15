@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Head } from '@inertiajs/react';
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
+// import { Head } from '@inertiajs/react';
+// import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import Swal from "sweetalert2";
 import { CloudUpload, Loader2 } from 'lucide-react';
 
@@ -34,8 +34,8 @@ export default function ExcelUploader() {
     };
 
     return (
-        <AuthenticatedLayout>
-            <Head title="Import Excel" />
+        // <AuthenticatedLayout>
+        //     <Head title="Import Excel" />
             <div className="p-12 max-w-7xl mx-auto">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6">📤 Excel Importer</h2>
 
@@ -126,6 +126,6 @@ export default function ExcelUploader() {
                     </div>
                 )}
             </div>
-        </AuthenticatedLayout>
+        // </AuthenticatedLayout>
     );
 }
