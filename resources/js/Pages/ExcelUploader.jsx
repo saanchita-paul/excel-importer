@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
+import Swal from "sweetalert2";
 export default function ExcelUploader() {
     const [file, setFile] = useState(null);
     const [failures, setFailures] = useState([]);
@@ -9,7 +10,10 @@ export default function ExcelUploader() {
     const [loading, setLoading] = useState(false);
 
     const handleUpload = async () => {
-        if (!file) return alert("Please choose a file");
+        if (!file) {
+            Swal.fire("No file selected", "Please choose an Excel file to upload", "warning");
+            return;
+        }
 
         const formData = new FormData();
         formData.append("file", file);
@@ -19,9 +23,9 @@ export default function ExcelUploader() {
             const response = await axios.post("/api/import-matches", formData);
             setFailures(response.data.failures || []);
             setDownloadUrl(response.data.download_url);
-            alert("Import completed");
+            Swal.fire("Success", "Excel imported successfully!", "success");
         } catch (error) {
-            alert("Upload failed");
+            Swal.fire("Upload Failed", "Something went wrong during upload", "error");
         } finally {
             setLoading(false);
         }
