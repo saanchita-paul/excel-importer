@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/excel-importer', function () {
         return Inertia::render('ExcelUploader');
-    });
+    })->name('excel-importer');
 });
 
 require __DIR__.'/auth.php';
