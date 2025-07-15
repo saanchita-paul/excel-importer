@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\PersonRequest;
 use App\Models\Person;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,6 +12,9 @@ class PersonImporter
 
     public function import(array $data, array $headers): void
     {
+        $personRequest = new PersonRequest();
+        $rules = $personRequest->rules();
+
         foreach (array_slice($data, 1) as $index => $row) {
             $rowData = array_combine($headers, $row);
 
@@ -20,12 +24,8 @@ class PersonImporter
 
             $rowNumber = $index + 2;
 
-            $validator = Validator::make($rowData, [
-                'name' => 'required|string',
-                'email' => 'required|email',
-                'phone' => 'required|regex:/^[0-9\s\-\+\(\)]+$/',
-                'gender' => 'required|in:M,F',
-            ]);
+            $validator = Validator::make($rowData, $rules);
+
 
             if ($validator->fails()) {
                 $this->failures[] = [

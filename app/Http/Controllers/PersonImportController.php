@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PersonImportRequest;
 use Illuminate\Http\Request;
 use App\Services\PersonImporter;
 use App\Services\FailureExporter;
@@ -9,11 +10,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PersonImportController extends Controller
 {
-    public function import(Request $request)
+    public function import(PersonImportRequest $request)
     {
-        $request->validate([
-            'file' => 'required|file|mimes:xlsx,xls',
-        ]);
 
         $data = Excel::toArray([], $request->file('file'))[0];
         $headers = array_map('strtolower', array_map('trim', $data[0]));
