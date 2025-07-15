@@ -25,6 +25,12 @@ class PersonImportController extends Controller
         return response()->json([
             'failures' => $importer->failures,
             'download_url' => $downloadUrl,
+            'summary' => [
+                'total' => count($data) - 1,
+                'imported' => $importer->importedCount,
+                'failed' => count($importer->failures),
+                'saved' => $importer->savedCount,
+            ],
         ]);
     }
 }

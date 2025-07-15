@@ -118,4 +118,4 @@ This will make your stored Excel files accessible via public/storage.
    ```
 
 ### Output
-![img.png](img.png)
+![img_1.png](img_1.png)

@@ -10,6 +10,7 @@ export default function ExcelUploader() {
     const [failures, setFailures] = useState([]);
     const [downloadUrl, setDownloadUrl] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [summary, setSummary] = useState(null);
 
     const handleUpload = async () => {
         if (!file) {
@@ -25,6 +26,10 @@ export default function ExcelUploader() {
             const response = await axios.post("/api/import-matches", formData);
             setFailures(response.data.failures || []);
             setDownloadUrl(response.data.download_url);
+            setFailures(response.data.failures || []);
+            setDownloadUrl(response.data.download_url);
+            setSummary(response.data.summary);
+
             Swal.fire("Success", "Excel imported successfully!", "success");
         } catch (error) {
             Swal.fire("Upload Failed", "Something went wrong during upload", "error");
@@ -73,6 +78,15 @@ export default function ExcelUploader() {
                         )}
                     </button>
                 </div>
+
+                {summary && (
+                    <div className="mt-6 mb-6 bg-green-50 border border-green-300 p-4 rounded-md text-sm text-green-800">
+                        <p><strong>Total Rows:</strong> {summary.total}</p>
+                        <p><strong>Imported (non-empty):</strong> {summary.imported}</p>
+                        <p><strong>Saved to DB:</strong> {summary.saved}</p>
+                        <p><strong>Failed:</strong> {summary.failed}</p>
+                    </div>
+                )}
 
                 {failures.length > 0 && (
                     <div className="mt-10">

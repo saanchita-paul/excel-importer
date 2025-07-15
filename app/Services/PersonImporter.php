@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 class PersonImporter
 {
     public array $failures = [];
+    public int $importedCount = 0;
+    public int $savedCount = 0;
 
     public function import(array $data, array $headers): void
     {
@@ -22,6 +24,7 @@ class PersonImporter
                 continue;
             }
 
+            $this->importedCount++;
             $rowNumber = $index + 2;
 
             $validator = Validator::make($rowData, $rules);
@@ -37,6 +40,7 @@ class PersonImporter
             }
 
             Person::create($rowData);
+            $this->savedCount++;
         }
     }
 }

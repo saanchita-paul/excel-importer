@@ -26,14 +26,12 @@ export default function Register() {
             <Head title="Register" />
             <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center relative overflow-hidden text-white">
 
-                {/* Glowing animated background */}
                 <motion.div
                     className="absolute w-[600px] h-[600px] bg-white/10 rounded-full -top-40 -left-40 blur-3xl"
                     animate={{ scale: [1, 1.2, 1], rotate: [0, 360, 0] }}
                     transition={{ repeat: Infinity, duration: 20, ease: "easeInOut" }}
                 />
 
-                {/* Form Card */}
                 <motion.div
                     className="relative z-10 w-full max-w-md p-8 bg-white rounded-2xl shadow-xl"
                     initial={{ opacity: 0, y: 40 }}
