@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import Swal from "sweetalert2";
 import { CloudUpload, Loader2 } from 'lucide-react';
+
 export default function ExcelUploader() {
     const [file, setFile] = useState(null);
     const [failures, setFailures] = useState([]);
@@ -33,34 +34,31 @@ export default function ExcelUploader() {
     };
 
     return (
-        <div>
-            <AuthenticatedLayout>
-             <Head title="Import Excel" />
-            <div className="p-12 items-center justify-center w-full">
-            <h2 className="text-xl font-bold mb-4">Excel Importer</h2>
-                <div className="max-w-full mx-auto bg-white dark:bg-gray-900 shadow-md rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
-                    <h2 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">📤 Excel Importer</h2>
+        <AuthenticatedLayout>
+            <Head title="Import Excel" />
+            <div className="p-12 max-w-7xl mx-auto">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">📤 Excel Importer</h2>
 
-                    <label className="block">
-                        <span className="text-gray-700 dark:text-gray-300 font-medium">Choose Excel File</span>
+                <div className="bg-white border border-gray-200 rounded-xl shadow p-8">
+                    <label className="block mb-4">
+                        <span className="text-gray-800 font-medium">Choose Excel File</span>
                         <input
                             type="file"
                             accept=".xlsx,.xls"
                             onChange={(e) => setFile(e.target.files[0])}
-                            className="mt-2 block w-full text-sm text-gray-700 dark:text-gray-200
-                       file:mr-4 file:py-2 file:px-4
-                       file:rounded-lg file:border-0
-                       file:text-sm file:font-semibold
-                       file:bg-blue-50 file:text-blue-700
-                       hover:file:bg-blue-100
-                       dark:file:bg-gray-800 dark:file:text-gray-100 dark:hover:file:bg-gray-700"
+                            className="mt-2 block w-full text-sm
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-md file:border-0
+                            file:text-sm file:font-medium
+                            file:bg-blue-100 file:text-blue-700
+                            hover:file:bg-blue-200"
                         />
                     </label>
 
                     <button
-                        className="mt-6 w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold py-2.5 px-4 rounded-xl shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                         onClick={handleUpload}
                         disabled={loading}
+                        className="mt-4 w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold py-2.5 px-4 rounded-lg shadow disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {loading ? (
                             <>
@@ -76,55 +74,58 @@ export default function ExcelUploader() {
                     </button>
                 </div>
 
-
                 {failures.length > 0 && (
-                <div className="mt-6">
-                    <h3 className="text-red-600 font-semibold mb-2">Import Errors</h3>
-                    {downloadUrl && (
-                        <a
-                            href={downloadUrl}
-                            target="_blank"
-                            className="text-blue-500 underline mb-4 inline-block"
-                        >
-                            Download Excel of Failures
-                        </a>
-                    )}
+                    <div className="mt-10">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-lg font-semibold text-red-600">Import Errors</h3>
 
-                    <table className="border border-collapse w-full mt-2 text-sm">
-                        <thead>
-                        <tr>
-                            <th className="border px-2 py-1">Row</th>
-                            <th className="border px-2 py-1">Name</th>
-                            <th className="border px-2 py-1">Email</th>
-                            <th className="border px-2 py-1">Phone</th>
-                            <th className="border px-2 py-1">Gender</th>
-                            <th className="border px-2 py-1">Errors</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {failures.map((fail, idx) => (
-                            <tr key={idx}>
-                                <td className="border px-2 py-1">{fail.row}</td>
-                                <td className="border px-2 py-1">{fail.data.name}</td>
-                                <td className="border px-2 py-1">{fail.data.email}</td>
-                                <td className="border px-2 py-1">{fail.data.phone}</td>
-                                <td className="border px-2 py-1">{fail.data.gender}</td>
-                                <td className="border px-2 py-1">
-                                    <ul className="list-disc pl-4">
-                                        {Object.entries(fail.errors).map(([field, messages], i) => (
-                                            <li key={i}><strong>{field}</strong>: {messages.join(', ')}</li>
-                                        ))}
-                                    </ul>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
-        </div>
-            </AuthenticatedLayout>
-        </div>
+                            {downloadUrl && (
+                                <a
+                                    href={downloadUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-md shadow transition-colors"
+                                >
+                                    Download Excel of Failures
+                                </a>
+                            )}
+                        </div>
 
+                        <div className="overflow-auto rounded-lg border border-gray-300">
+                            <table className="min-w-full text-sm text-left">
+                                <thead className="bg-gray-100 border-b border-gray-300">
+                                <tr>
+                                    <th className="border px-4 py-2 font-medium text-gray-700">Row</th>
+                                    <th className="border px-4 py-2 font-medium text-gray-700">Name</th>
+                                    <th className="border px-4 py-2 font-medium text-gray-700">Email</th>
+                                    <th className="border px-4 py-2 font-medium text-gray-700">Phone</th>
+                                    <th className="border px-4 py-2 font-medium text-gray-700">Gender</th>
+                                    <th className="border px-4 py-2 font-medium text-gray-700">Errors</th>
+                                </tr>
+                                </thead>
+                                <tbody className="bg-white divide-y divide-gray-200">
+                                {failures.map((fail, idx) => (
+                                    <tr key={idx} className="hover:bg-gray-50">
+                                        <td className="border px-4 py-2 text-gray-700">{fail.row}</td>
+                                        <td className="border px-4 py-2 text-gray-700">{fail.data.name}</td>
+                                        <td className="border px-4 py-2 text-gray-700">{fail.data.email}</td>
+                                        <td className="border px-4 py-2 text-gray-700">{fail.data.phone}</td>
+                                        <td className="border px-4 py-2 text-gray-700">{fail.data.gender}</td>
+                                        <td className="border px-4 py-2 text-gray-700">
+                                            <ul className="list-disc pl-5 space-y-1">
+                                                {Object.entries(fail.errors).map(([field, messages], i) => (
+                                                    <li key={i}><strong>{field}</strong>: {messages.join(', ')}</li>
+                                                ))}
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </AuthenticatedLayout>
     );
 }
