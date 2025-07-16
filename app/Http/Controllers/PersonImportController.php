@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PersonImportRequest;
-use Illuminate\Http\Request;
 use App\Services\PersonImporter;
 use App\Services\FailureExporter;
 use Maatwebsite\Excel\Facades\Excel;
