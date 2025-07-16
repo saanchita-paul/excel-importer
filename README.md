@@ -1,4 +1,4 @@
-# 📥 Laravel Excel Importer with Validation (Laravel 12 + React + Inertia.js)
+#  Laravel Excel Importer with Validation (Laravel 12 + React + Inertia.js)
 
 This project provides a complete solution for importing Excel files with row-level validation, built using **Laravel 12**, **React**, and **Inertia.js**. It includes:
 
@@ -43,7 +43,7 @@ This project provides a complete solution for importing Excel files with row-lev
 
 ---
 
-## 📦 Installation
+##  Installation
 
 ### 1. Clone the repository
 
